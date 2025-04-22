@@ -1,1 +1,1 @@
-# dotnet-sports-mai
+# dotnet-sports-maui
