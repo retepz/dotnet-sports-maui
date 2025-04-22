@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Grid xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Sports.Maui.Start.Views.MatchTemplateView"
+    xmlns:localViews="clr-namespace:Sports.Maui.Start.Views;assembly=Sports.Maui.Start"
+    x:Name="self"
+    BackgroundColor="{Binding Source={x:Reference self}, Path=Match.HoveredColor, x:DataType=localViews:MatchTemplateView}"
+    Padding="{OnIdiom Default=10,TV=10}"
+    RowDefinitions="Auto,*">
+    <Grid.Margin>
+        <OnIdiom Default="15" Phone="1,10,1,10"></OnIdiom>
+    </Grid.Margin>
+    <localViews:MatchHeaderView
+        Grid.Row="0"
+        QuarterDisplay="{Binding Source={x:Reference self}, Path=Match.QuarterDisplay, x:DataType=localViews:MatchTemplateView, Mode=OneWay}"
+        GameTimeDisplay="{Binding Source={x:Reference self}, Path=Match.GameTimeDisplay, x:DataType=localViews:MatchTemplateView}"
+        BroadcastStations="{Binding Source={x:Reference self}, Path=Match.BroadcastStations, x:DataType=localViews:MatchTemplateView}" />
+    <Grid
+        ColumnSpacing="0"
+        ColumnDefinitions="*,*"
+        RowDefinitions="*"
+        Grid.Row="1">
+        <localViews:MatchTeamBorderView
+            Grid.Column="0"
+            Grid.Row="0"
+            Color="{Binding Source={x:Reference self}, Path=Match.FirstTeam.Color, x:DataType=localViews:MatchTemplateView}">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="0,0,7,0" />
+            </Border.StrokeShape>
+            <localViews:MatchTeamView
+                ScoreColumnDefinition="*"
+                LogoColumnDefinition="Auto"
+                HorizontalOptions="Fill"
+                Name="{Binding Source={x:Reference self}, Path=Match.FirstTeam.Name, x:DataType=localViews:MatchTemplateView}"
+                Location="{Binding Source={x:Reference self}, Path=Match.FirstTeam.Location, x:DataType=localViews:MatchTemplateView}"
+                Logo="{Binding Source={x:Reference self}, Path=Match.FirstTeam.Logo, x:DataType=localViews:MatchTemplateView}"
+                Score="{Binding Source={x:Reference self}, Path=Match.FirstTeam.Score, x:DataType=localViews:MatchTemplateView}"
+                HomeAway="{Binding Source={x:Reference self}, Path=Match.FirstTeam.HomeAway, x:DataType=localViews:MatchTemplateView}"
+                HasLogo="{Binding Source={x:Reference self}, Path=Match.FirstTeam.HasLogo, x:DataType=localViews:MatchTemplateView}"
+                HasPossession="{Binding Source={x:Reference self}, Path=Match.FirstTeam.HasPossession, x:DataType=localViews:MatchTemplateView}"
+                Record="{Binding Source={x:Reference self}, Path=Match.FirstTeam.Record, x:DataType=localViews:MatchTemplateView}"
+                Color="{Binding Source={x:Reference self}, Path=Match.FirstTeam.Color, x:DataType=localViews:MatchTemplateView}"
+                ContentHorizontalOptions="Start"
+                LogoColumn="0"
+                ScoreColumn="1"
+                ContentHorizontalTextAlignment="Start"
+                LogoHorizontalOptions="End" />
+        </localViews:MatchTeamBorderView>
+
+        <localViews:MatchTeamBorderView
+            Grid.Column="1"
+            Color="{Binding Source={x:Reference self}, Path=Match.SecondTeam.Color, x:DataType=localViews:MatchTemplateView}"
+            Margin="0">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="0,0,0,7" />
+            </Border.StrokeShape>
+            <localViews:MatchTeamView
+                ScoreColumnDefinition="Auto"
+                LogoColumnDefinition="*"
+                HorizontalOptions="Fill"
+                Name="{Binding Source={x:Reference self}, Path=Match.SecondTeam.Name, x:DataType=localViews:MatchTemplateView}"
+                Location="{Binding Source={x:Reference self}, Path=Match.SecondTeam.Location, x:DataType=localViews:MatchTemplateView}"
+                Logo="{Binding Source={x:Reference self}, Path=Match.SecondTeam.Logo, x:DataType=localViews:MatchTemplateView}"
+                Score="{Binding Source={x:Reference self}, Path=Match.SecondTeam.Score, x:DataType=localViews:MatchTemplateView}"
+                HomeAway="{Binding Source={x:Reference self}, Path=Match.SecondTeam.HomeAway, x:DataType=localViews:MatchTemplateView}"
+                HasLogo="{Binding Source={x:Reference self}, Path=Match.SecondTeam.HasLogo, x:DataType=localViews:MatchTemplateView}"
+                HasPossession="{Binding Source={x:Reference self}, Path=Match.SecondTeam.HasPossession, x:DataType=localViews:MatchTemplateView}"
+                Record="{Binding Source={x:Reference self}, Path=Match.SecondTeam.Record, x:DataType=localViews:MatchTemplateView}"
+                Color="{Binding Source={x:Reference self}, Path=Match.SecondTeam.Color, x:DataType=localViews:MatchTemplateView}"
+                LogoColumn="1"
+                ScoreColumn="0"
+                ContentHorizontalOptions="End"
+                ContentHorizontalTextAlignment="End"
+                LogoHorizontalOptions="Start"/>
+        </localViews:MatchTeamBorderView>
+    </Grid>
+</Grid>

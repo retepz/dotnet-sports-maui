@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Sports.Maui.Start.AppShell"
+    Title="Sports.Maui"
+    xmlns:localSportsPage="clr-namespace:Sports.Maui.Start.Pages.Sports"
+    xmlns:localSelectedLeaguePage="clr-namespace:Sports.Maui.Start.Pages.SelectedLeague"
+    TabBarTitleColor="NavajoWhite"
+    TabBarBackgroundColor="{AppThemeBinding Light=SlateGray, Dark=Black}">
+    <TabBar>
+        <Tab Title="Football" Icon="football.png">
+            <ShellContent Route="football" ContentTemplate="{DataTemplate localSportsPage:FootballPage}" />
+        </Tab>
+        <Tab Title="Basketball" Icon="basketball.png">
+            <ShellContent Route="basketball" ContentTemplate="{DataTemplate localSportsPage:BasketballPage}" />
+        </Tab>
+        <Tab Title="Hockey" Icon="hockey.webp">
+            <ShellContent Route="hockey" ContentTemplate="{DataTemplate localSportsPage:HockeyPage}" />
+        </Tab>
+        <Tab Title="Baseball" Icon="baseball.webp">
+            <ShellContent Route="baseball" ContentTemplate="{DataTemplate localSportsPage:BaseballPage}" />
+        </Tab>
+    </TabBar>
+</Shell>

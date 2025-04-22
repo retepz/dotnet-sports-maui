@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sports.Maui.Start.Views.TVCollectionView"
+             xmlns:localViews="clr-namespace:Sports.Maui.Start.Views;assembly=Sports.Maui.Start"
+             x:Name="self"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:localModel="clr-namespace:Sports.Maui.Start.Model.UI;assembly=Sports.Maui.Start">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <toolkit:IsNotNullConverter x:Key="IsNotNullConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <Grid 
+    Margin="10"
+    RowDefinitions="*">
+        <ActivityIndicator 
+            Grid.Row="0"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            IsEnabled="{Binding Source={x:Reference self}, Path=ShowLoading, x:DataType=localViews:TVCollectionView}"
+            IsRunning="{Binding Source={x:Reference self}, Path=ShowLoading, x:DataType=localViews:TVCollectionView}" />
+        <CollectionView
+            Grid.Row="0"
+            x:Name="Collection"
+            ItemsSource="{Binding Source={x:Reference self}, Path=ItemsSource, x:DataType=localViews:TVCollectionView}"
+            SelectionChangedCommand="{Binding Source={x:Reference self}, Path=SelectionChangedCommand, x:DataType=localViews:TVCollectionView}"
+            SelectionMode="{Binding Source={x:Reference self}, Path=SelectionMode, x:DataType=localViews:TVCollectionView}"
+            SelectedItem="{Binding Source={x:Reference self}, Path=SelectedItem, x:DataType=localViews:TVCollectionView}"
+            VerticalScrollBarVisibility="Default"
+            Opacity="{Binding Source={x:Reference self}, Path=CollectionViewOpacity, x:DataType=localViews:TVCollectionView}">
+            <CollectionView.Header>
+                <VerticalStackLayout
+                    IsVisible="{Binding Source={x:Reference self}, Path=HeaderIsVisible, x:DataType=localViews:TVCollectionView}"
+                    Spacing="5"
+                    Margin="0,0,0,10">
+                    <Grid
+                        ColumnDefinitions="Auto, *"
+                        ColumnSpacing="10"
+                        HorizontalOptions="Start">
+                        <Image
+                            Grid.Column="0"
+                            Source="{Binding Source={x:Reference self}, Path=HeaderImage, x:DataType=localViews:TVCollectionView}"
+                            WidthRequest="50"
+                            HeightRequest="50" />
+                        <Label 
+                            VerticalTextAlignment="Center"
+                            Grid.Column="1"
+                            FontSize="25"
+                            FontAttributes="Bold"
+                            Text="{Binding Source={x:Reference self}, Path=HeaderLabel, x:DataType=localViews:TVCollectionView}" />
+                    </Grid>
+                    <Border
+                        BackgroundColor="Gray" />
+                </VerticalStackLayout>
+            </CollectionView.Header>
+            <CollectionView.ItemTemplate>
+                <DataTemplate
+                    x:DataType="localModel:TVDpadModel">
+                    <Grid 
+                        ColumnDefinitions="Auto, *"
+                        RowDefinitions="*"
+                        ColumnSpacing="10"
+                        BackgroundColor="{Binding HoveredColor}"
+                        Padding="10">
+                        <Switch
+                            Grid.Column="0"
+                            IsToggled="{Binding IsEnabled}"
+                            IsVisible="{Binding IsEnabled, Converter={StaticResource IsNotNullConverter}}" />
+                        <Image
+                            Grid.Column="0"
+                            Source="{Binding Logo}"
+                            WidthRequest="100"
+                            HeightRequest="100"
+                            IsVisible="{Binding Logo, Converter={StaticResource IsNotNullConverter}}" />
+                        <Label
+                            Grid.Column="1"
+                            HorizontalTextAlignment="Start"
+                            VerticalTextAlignment="Center"
+                            FontSize="50"
+                            Text="{Binding Name}"
+                            LineBreakMode="MiddleTruncation" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid> 
+</ContentView>

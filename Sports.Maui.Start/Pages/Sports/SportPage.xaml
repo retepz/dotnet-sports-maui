@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<localPage:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sports.Maui.Start.Pages.Sports.SportPage"
+             xmlns:localSportViewModels="clr-namespace:Sports.Maui.Start.ViewModels.Sports;assembly=Sports.Maui.Start"
+             xmlns:localClass="clr-namespace:Sports.Maui.Start.Model.UI;assembly=Sports.Maui.Start"
+             xmlns:localPage="clr-namespace:Sports.Maui.Start.Pages;assembly=Sports.Maui.Start"
+             x:DataType="localSportViewModels:SportViewModel"
+             xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:localViews="clr-namespace:Sports.Maui.Start.Views;assembly=Sports.Maui.Start">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid
+            RowDefinitions="*"
+            RowSpacing="10"
+            Margin="15">
+            
+            <ActivityIndicator 
+                Grid.Row="0"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                IsEnabled="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" />
+            
+            <!--#region Collection View-->
+            <CollectionView
+                    ItemsSource="{Binding SportLeagues}"
+                    SelectionChangedCommand="{Binding SportLeagueSelectedCommand}"
+                    SelectedItem="{Binding SelectedSportLeague}"
+                    SelectionMode="Single"
+                    IsVisible="{Binding ShowLoading, Converter={StaticResource InvertedBoolConverter}}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate
+                            x:DataType="localClass:UISportLeague">
+                        <Grid 
+                            RowDefinitions="*"
+                            ColumnDefinitions="Auto, *"
+                            Margin="{OnIdiom Default=50,Phone=20}"
+                            Padding="0,10,0,10"
+                            ColumnSpacing="{OnIdiom Default=20,Phone=10}">
+                            <Image
+                                HeightRequest="{OnIdiom Default=100,Phone=75}"
+                                WidthRequest="{OnIdiom Default=100,Phone=75}"
+                                Source="{Binding Logo}"
+                                Grid.Column="0"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center" />
+                            <Label
+                                Grid.Column="1"
+                                Text="{Binding Name}"
+                                VerticalOptions="Center"
+                                FontSize="{OnIdiom Default=30,Phone=25}"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <!--#endregion-->
+        </Grid>
+    </ContentPage.Content>
+</localPage:BasePage>

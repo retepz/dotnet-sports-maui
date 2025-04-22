@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<localPage:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Sports.Maui.Start.Pages.SelectedLeague.SelectedLeaguePage"
+    xmlns:localSelectedLeagueViewModels="clr-namespace:Sports.Maui.Start.ViewModels.SelectedLeague;assembly=Sports.Maui.Start"
+    xmlns:localClass="clr-namespace:Sports.Maui.Start.Model.UI;assembly=Sports.Maui.Start"
+    xmlns:localPage="clr-namespace:Sports.Maui.Start.Pages;assembly=Sports.Maui.Start"
+    x:DataType="localSelectedLeagueViewModels:SelectedLeagueViewModel"
+    xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:localViews="clr-namespace:Sports.Maui.Start.Views;assembly=Sports.Maui.Start">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="{OnPlatform Default=False, WinUI=True}" />
+    </Shell.BackButtonBehavior>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid
+            RowDefinitions="Auto,Auto,Auto,*"
+            RowSpacing="3">
+            <HorizontalStackLayout 
+                BackgroundColor="#2B0B98"
+                Grid.Row="0"
+                IsVisible="{OnPlatform Default=False, Android=True}">
+                <Image
+                    HorizontalOptions="Start"
+                    HeightRequest="20"
+                    WidthRequest="20"
+                    Margin="5"
+                    Source="https://cdn2.iconfinder.com/data/icons/50-material-design-round-corner-style/44/Back-512.png" />
+                <HorizontalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BackCommand}" />
+                </HorizontalStackLayout.GestureRecognizers>
+            </HorizontalStackLayout>
+            <!--#region Header-->
+            <Grid
+                Margin="20,0,20,0"
+                Grid.Row="1"
+                ColumnDefinitions="*,*">
+                <!--#region Left Header Column-->
+                    <!--#region Week Header-->
+                    <VerticalStackLayout
+                        Grid.Column="0">
+                        <HorizontalStackLayout
+                            Spacing="2">
+                            <Image 
+                                Source="{Binding SelectedLeague.LeagueLogo}"
+                                HeightRequest="30"
+                                WidthRequest="30" />
+                            <Label 
+                                VerticalTextAlignment="Center"
+                                Text="{Binding SelectedLeague.DisplayName}"
+                                HeightRequest="50"
+                                WidthRequest="50" />
+                        </HorizontalStackLayout>
+                        <Label
+                            Text="{Binding SelectedLeague.HeaderDisplay}"
+                            FontSize="{ OnIdiom Default=30, Phone=20 }"
+                            FontAttributes="Bold"
+                            HorizontalTextAlignment="Start"
+                            VerticalTextAlignment="Start"
+                            IsVisible="{Binding SelectedLeague.ShowHeaderDisplay}"
+                            />
+                        <Label
+                            Text="{Binding SelectedLeague.SubheadingDisplay}"
+                            FontSize="15"
+                            VerticalTextAlignment="Start"
+                            HorizontalTextAlignment="Start"
+                            />
+                        <VerticalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding LeagueNameCommand}" />
+                        </VerticalStackLayout.GestureRecognizers>
+                    </VerticalStackLayout>
+                <!--#endregion-->
+                <!--#endregion-->
+                
+                <!--#region Right Header Column-->
+                    <!--#region Search-->
+                    <Border
+                        Grid.Column="1"
+                        VerticalOptions="Start"
+                        HorizontalOptions="End"
+                        Margin="10,0,0,0"
+                        IsVisible="{Binding ShowSearch}">
+                    <Entry
+                        WidthRequest="{OnIdiom Default=200, Phone=150}"
+                        Placeholder="Search"
+                        Text="{Binding SearchText}"
+                        ReturnCommand="{Binding SearchCommand}"
+                        IsEnabled="{Binding SearchEnabled}" />
+                    </Border>
+                    
+                <!--#endregion-->
+            </Grid>
+            <!--#endregion-->
+            
+            <!--#region Horizontal Separator-->
+            <BoxView
+                Grid.Row="2"
+                Color="LightGray"             
+                HeightRequest="3"  
+                HorizontalOptions="Fill"
+                Margin="20,10,20,0"
+                IsVisible="{Binding ShowLoading, Converter={StaticResource InvertedBoolConverter}}" />
+            <!--#endregion-->
+            
+            <!--#region Loading-->
+            <ActivityIndicator
+                Grid.Row="3"
+                ZIndex="100"
+                HorizontalOptions="Center"
+                VerticalOptions="Start"
+                IsVisible="{Binding ShowLoading}"
+                IsRunning="{Binding ShowLoading}" />
+            <!--#endregion-->
+            
+            <!--#region Collection View-->
+            <RefreshView
+                Margin="20"
+                Grid.Row="3"
+                IsVisible="{Binding ShowMatches}"
+                Command="{Binding RefreshCommand}"
+                IsRefreshing="{Binding IsRefreshing}"
+                windows:RefreshView.RefreshPullDirection="TopToBottom">
+                <CollectionView
+                    IsGrouped="{Binding CollectionIsGrouped}"
+                    ItemsSource="{Binding CollectionItemsSource}"
+                    SelectedItem="{Binding SelectedItem}"
+                    SelectionChangedCommand="{Binding SelectedItemCommand}"
+                    SelectionMode="Single"
+                    x:Name="MatchesCollectionView">
+                    <CollectionView.GroupHeaderTemplate>
+                        <DataTemplate
+                            x:DataType="localClass:UIMatchGroup">
+                            <VerticalStackLayout>
+                                <Label
+                                    FontSize="18"
+                                    Text="{Binding Name}"
+                                    Padding="0"/>
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.GroupHeaderTemplate>
+                    <CollectionView.EmptyView>
+                        <Label
+                            Text="{Binding ErrorMessage}"
+                            FontSize="25"
+                            FontAttributes="Bold"
+                            HorizontalTextAlignment="Center"
+                            VerticalTextAlignment="Center"/>
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate
+                            x:DataType="localClass:UIMatch">
+                            <localViews:MatchTemplateView
+                                Match="{Binding ., Mode=OneWay}" />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+            <!--#endregion-->
+        </Grid>
+    </ContentPage.Content>
+</localPage:BasePage>

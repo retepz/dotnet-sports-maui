@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<VerticalStackLayout xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Sports.Maui.Start.Views.MatchTeamView"
+    xmlns:localViews="clr-namespace:Sports.Maui.Start.Views;assembly=Sports.Maui.Start"
+    x:DataType="localViews:MatchTeamView"
+    x:Name="self">
+    <Grid
+        RowDefinitions="*">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="{Binding Source={x:Reference self}, Path=LogoColumnDefinition}"></ColumnDefinition>
+            <ColumnDefinition Width="{Binding Source={x:Reference self}, Path=ScoreColumnDefinition}"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Image
+            Grid.Column="{Binding Source={x:Reference self}, Path=ScoreColumn}"
+            Source="{Binding Source={x:Reference self}, Path=Logo}"
+            MaximumHeightRequest="{ OnIdiom Default=125, Phone=50 }"
+            MaximumWidthRequest="{ OnIdiom Default=125, Phone=50 }"
+            MinimumHeightRequest="20"
+            MinimumWidthRequest="20"
+            HorizontalOptions="{Binding Source={x:Reference self}, Path=LogoHorizontalOptions}" />
+        <VerticalStackLayout
+            Grid.Column="{Binding Source={x:Reference self}, Path=LogoColumn}"
+            HorizontalOptions="{Binding Source={x:Reference self}, Path=ContentHorizontalOptions}">
+            <Grid
+                HorizontalOptions="{Binding Source={x:Reference self}, Path=ContentHorizontalOptions}"
+                ColumnDefinitions="Auto,Auto"
+                ColumnSpacing="{OnIdiom Default=10, Phone=5}">
+                <Image
+                    Grid.Column="{Binding Source={x:Reference self}, Path=ScoreColumn}"
+                    WidthRequest="{ OnIdiom Default=16, Phone=13 }"
+                    HeightRequest="{ OnIdiom Default=16, Phone=13 }"
+                    IsVisible="{Binding Source={x:Reference self}, Path=HasPossession}"
+                    VerticalOptions="Center"
+                    Source="mini_football.png" />
+                <Label
+                    Grid.Column="{Binding Source={x:Reference self}, Path=LogoColumn}"
+                    VerticalOptions="Center"
+                    Text="{Binding Source={x:Reference self}, Path=Record}"
+                    FontSize="{ OnIdiom Default=16, Phone=12 }"
+                    HorizontalTextAlignment="{Binding Source={x:Reference self}, Path=ContentHorizontalTextAlignment}"
+                    HorizontalOptions="{Binding Source={x:Reference self}, Path=ContentHorizontalOptions}" />
+            </Grid>
+            <Grid
+                HorizontalOptions="{Binding Source={x:Reference self}, Path=ContentHorizontalOptions}"
+                ColumnDefinitions="*"
+                RowDefinitions="*,*">
+                <Label
+                    Text="{Binding Source={x:Reference self}, Path=Location}"
+                    FontSize="{ OnIdiom Default=20, Phone=11 }"
+                    MaxLines="2"
+                    LineBreakMode="TailTruncation"
+                    HorizontalOptions="{Binding Source={x:Reference self}, Path=ContentHorizontalOptions}"
+                    HorizontalTextAlignment="{Binding Source={x:Reference self}, Path=ContentHorizontalTextAlignment}" />
+                <Label
+                    Grid.Row="1"
+                    LineBreakMode="TailTruncation"
+                    Text="{Binding Source={x:Reference self}, Path=Name}"
+                    MaxLines="2"
+                    FontSize="{ OnIdiom Default=20, Phone=11 }"
+                    HorizontalTextAlignment="{Binding Source={x:Reference self}, Path=ContentHorizontalTextAlignment}"
+                    HorizontalOptions="{Binding Source={x:Reference self}, Path=ContentHorizontalOptions}" />
+            </Grid>
+            <VerticalStackLayout
+                HorizontalOptions="{Binding Source={x:Reference self}, Path=ContentHorizontalOptions}">
+                <Label
+                    Text="{Binding Source={x:Reference self}, Path=Score}"
+                    HorizontalTextAlignment="{Binding Source={x:Reference self}, Path=ContentHorizontalTextAlignment}"
+                    FontSize="{ OnIdiom Default=25, Phone=16 }"
+                    FontAttributes="Bold" />
+                <Label
+                    Text="{Binding Source={x:Reference self}, Path=HomeAway}"
+                    VerticalOptions="Center"
+                    HorizontalTextAlignment="{Binding Source={x:Reference self}, Path=ContentHorizontalTextAlignment}"
+                    FontSize="{ OnIdiom Default=13, Phone=12 }" />
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </Grid>
+</VerticalStackLayout>

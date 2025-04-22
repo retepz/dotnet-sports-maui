@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<localPage:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sports.Maui.Start.Pages.TV.TVPreferencesPage"
+             xmlns:localPage="clr-namespace:Sports.Maui.Start.Pages;assembly=Sports.Maui.Start"
+             xmlns:localViewModels="clr-namespace:Sports.Maui.Start.ViewModels.TV;assembly=Sports.Maui.Start"
+             x:DataType="localViewModels:TVPreferencesPageViewModel"
+             xmlns:localViews="clr-namespace:Sports.Maui.Start.Views;assembly=Sports.Maui.Start">
+    <localViews:TVCollectionView
+        x:Name="TVCollectionView"
+        HeaderLabel="Preferences"
+        CollectionViewOpacity="{Binding Opacity}"
+        ShowLoading="{Binding ShowLoading}"
+        ItemsSource="{Binding Preferences}"
+        SelectionChangedCommand="{Binding SelectedItemCommand}"
+        SelectionMode="{Binding SelectionMode}"
+        SelectedItem="{Binding SelectedItem}"
+        HeaderIsVisible="True" />
+</localPage:BasePage>

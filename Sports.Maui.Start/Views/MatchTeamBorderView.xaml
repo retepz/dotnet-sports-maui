@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Border xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Sports.Maui.Start.Views.MatchTeamBorderView"
+    xmlns:localViews="clr-namespace:Sports.Maui.Start.Views;assembly=Sports.Maui.Start"
+    x:Name="self"
+    Stroke="Gray"
+    StrokeThickness=".15"    
+    MinimumWidthRequest="{OnIdiom Default=120, Phone=1}"
+    Padding="{OnIdiom Default=10, Phone=10}"
+    BackgroundColor="{Binding Source={x:Reference self}, Path=Color, x:DataType=localViews:MatchTeamBorderView}">
+</Border>

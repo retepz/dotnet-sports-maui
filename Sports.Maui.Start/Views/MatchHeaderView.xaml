@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<VerticalStackLayout xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Sports.Maui.Start.Views.MatchHeaderView"
+    xmlns:localViews="clr-namespace:Sports.Maui.Start.Views;assembly=Sports.Maui.Start"
+    x:Name="self">
+    <Border
+        Stroke="Gray"
+        StrokeThickness=".15"
+        Padding="10"
+        BackgroundColor="#212121">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="7,7,0,0" />
+        </Border.StrokeShape>
+    <Grid
+        ColumnDefinitions="*,*,*">
+        <Label
+            Grid.Row="0"
+            Grid.Column="0"
+            HorizontalOptions="Start"
+            HorizontalTextAlignment="Start"
+            LineBreakMode="TailTruncation"
+            Text="{Binding Source={x:Reference self}, Path=QuarterDisplay, x:DataType=localViews:MatchHeaderView, Mode=OneWay}"
+            FontSize="{OnIdiom Default=18, Phone=14}"
+            MaxLines="1" />
+        <Label
+            Grid.Row="0"
+            Grid.Column="1"
+            HorizontalOptions="Center"
+            HorizontalTextAlignment="Center"
+            Text="{Binding Source={x:Reference self}, Path=GameTimeDisplay, x:DataType=localViews:MatchHeaderView}"
+            LineBreakMode="TailTruncation"
+            FontSize="{OnIdiom Default=18, Phone=14}"
+            MaxLines="1" />
+        <Label
+            Grid.Row="1"
+            Grid.Column="2"
+            VerticalOptions="End"
+            HorizontalOptions="End"
+            HorizontalTextAlignment="End"
+            FontSize="{OnIdiom Default=16, Phone=14}"
+            MaxLines="1"
+            LineBreakMode="TailTruncation"
+            Text="{Binding Source={x:Reference self}, Path=BroadcastStations, x:DataType=localViews:MatchHeaderView}"  />
+    </Grid>
+    </Border>
+</VerticalStackLayout>
